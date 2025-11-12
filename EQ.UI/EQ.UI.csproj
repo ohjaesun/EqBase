@@ -10,8 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EqBase.Core\EqBase.Core.csproj" />
-    <ProjectReference Include="..\EqBase.Domain\EqBase.Domain.csproj" />
+    <Folder Include="Forms\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EQ.Common\EQ.Common.csproj" />
+    <ProjectReference Include="..\EQ.Core\EQ.Core.csproj" />
+    <ProjectReference Include="..\EQ.Domain\EQ.Domain.csproj" />
+    <ProjectReference Include="..\EQ.Infra\EQ.Infra.csproj" />
   </ItemGroup>
 
 </Project>

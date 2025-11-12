@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EqBase.UI", "EqBase\EqBase.UI.csproj", "{D5C3D988-D8FA-4FCC-A53E-B2CAB997D1F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.UI", "EQ.UI\EQ.UI.csproj", "{D5C3D988-D8FA-4FCC-A53E-B2CAB997D1F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EqBase.Domain", "EqBase.Domain\EqBase.Domain.csproj", "{6B5338E5-BCBC-4BA3-9343-F1C53A15A03F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.Domain", "EQ.Domain\EQ.Domain.csproj", "{6B5338E5-BCBC-4BA3-9343-F1C53A15A03F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EqBase.Core", "EqBase.Core\EqBase.Core.csproj", "{4B7A1635-C594-4B13-9FEA-E925EA7CA368}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.Core", "EQ.Core\EQ.Core.csproj", "{4B7A1635-C594-4B13-9FEA-E925EA7CA368}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EqBase.Infra", "EqBase.Infra\EqBase.Infra.csproj", "{7C5E1F42-09B5-4666-BB86-00492CCC70F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.Infra", "EQ.Infra\EQ.Infra.csproj", "{7C5E1F42-09B5-4666-BB86-00492CCC70F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.Common", "EQ.Common\EQ.Common.csproj", "{786AF400-8F9E-4B8A-92C5-1D768E25077A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hardware.Infra.IO.WMX", "Hardware\Hardware.Infra.IO.WMX.csproj", "{43290933-5392-46D8-AA08-BD103A5C3A33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,22 @@ Global
 		{7C5E1F42-09B5-4666-BB86-00492CCC70F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C5E1F42-09B5-4666-BB86-00492CCC70F3}.Release|x64.ActiveCfg = Release|x64
 		{7C5E1F42-09B5-4666-BB86-00492CCC70F3}.Release|x64.Build.0 = Release|x64
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|x64.Build.0 = Debug|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|x64.ActiveCfg = Release|Any CPU
+		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|x64.Build.0 = Release|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|x64.Build.0 = Debug|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|x64.ActiveCfg = Release|Any CPU
+		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

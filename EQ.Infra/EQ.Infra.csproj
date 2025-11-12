@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EqBase.Domain\EqBase.Domain.csproj" />
-    <ProjectReference Include="..\EqBase.Infra\EqBase.Infra.csproj" />
+    <Folder Include="Data\" />
+    <Folder Include="HW\Motion\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EQ.Common\EQ.Common.csproj" />
+    <ProjectReference Include="..\EQ.Domain\EQ.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EqBase.Domain\EqBase.Domain.csproj" />
+    <ProjectReference Include="..\EQ.Common\EQ.Common.csproj" />
+    <ProjectReference Include="..\EQ.Domain\EQ.Domain.csproj" />
   </ItemGroup>
 
 </Project>

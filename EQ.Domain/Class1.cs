@@ -1,4 +1,4 @@
-﻿namespace EqBase.Infra
+﻿namespace EQ.Domain
 {
     public class Class1
     {
