@@ -49,7 +49,10 @@ Common (공구함)
 참조: 없음 (다른 솔루션 프로젝트를 참조하지 않아야 합니다.)
 
 ------------------------------------------------------------------
-Hardware.Infra.XXX (외부 종속성)  프로젝트 구성에서 제외 해도 무방 ( DLL만 복사해서 사용 )
+Hardware.Infra.XXX.YYY (외부 종속성)  프로젝트 구성에서 제외 해도 무방 ( DLL만 복사해서 사용 )
+
+-csproj 파일에 출력 파일 복사 설정 필요 (아래 예시 참고 : 동적 로딩 DLL은 자동으로 복사되지 않음)
+<Exec Command="xcopy &quot;$(TargetDir)*.*&quot; &quot;$(SolutionDir)..\Excute\EQ.UI\$(Platform)\$(Configuration)\&quot; /e /y /i /d" />
 
 역할: 실제 하드웨어 제조사에서 제공하는 SDK, DLL 등 외부 종속성
 	  Infra 프로젝트에 구현되어야 하는 내용이지만 직접 참조하지 않고 Infra 프로젝트에서 어댑터 패턴 등을 사용하여 간접 참조

@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+	<Platform>x64</Platform>
+    
+    <Platforms>x64</Platforms>
+	
+    <BaseOutputPath>$(SolutionDir)..\Excute\$(MSBuildProjectName)\</BaseOutputPath>
+
+    <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
+    
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)..\Intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+</Project>

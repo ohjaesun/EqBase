@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;C:\Program Files\SoftServo\WMX3\Lib\IMDll.dll&quot; &quot;$(TargetDir)&quot; /e /y" />
+	<Exec Command="xcopy &quot;$(TargetDir)*.*&quot; &quot;$(SolutionDir)..\Excute\EQ.UI\$(Platform)\$(Configuration)\&quot; /e /y /i /d" />
   </Target>
 
 </Project>
