@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -13,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EQ.Common", "EQ.Common\EQ.Common.csproj", "{786AF400-8F9E-4B8A-92C5-1D768E25077A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hardware.Infra.IO.WMX", "Hardware\Hardware.Infra.IO.WMX.csproj", "{43290933-5392-46D8-AA08-BD103A5C3A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hardware.Infra.Motion.WMX", "Hardware.Infra.Motion.WMX\Hardware.Infra.Motion.WMX.csproj", "{465C1090-208B-4095-923C-11390CE7917C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,13 +41,16 @@ Global
 		{7C5E1F42-09B5-4666-BB86-00492CCC70F3}.Release|x64.Build.0 = Release|x64
 		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|x64.ActiveCfg = Debug|x64
 		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Debug|x64.Build.0 = Debug|x64
-File: ohjaesun/eqbase/EqBase-209e50b90c81ccee346c8a93a203d95000b17b43/EqBase.sln
 		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|x64.ActiveCfg = Release|x64
 		{786AF400-8F9E-4B8A-92C5-1D768E25077A}.Release|x64.Build.0 = Release|x64
 		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|x64.ActiveCfg = Debug|x64
 		{43290933-5392-46D8-AA08-BD103A5C3A33}.Debug|x64.Build.0 = Debug|x64
 		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|x64.ActiveCfg = Release|x64
 		{43290933-5392-46D8-AA08-BD103A5C3A33}.Release|x64.Build.0 = Release|x64
+		{465C1090-208B-4095-923C-11390CE7917C}.Debug|x64.ActiveCfg = Debug|x64
+		{465C1090-208B-4095-923C-11390CE7917C}.Debug|x64.Build.0 = Debug|x64
+		{465C1090-208B-4095-923C-11390CE7917C}.Release|x64.ActiveCfg = Release|x64
+		{465C1090-208B-4095-923C-11390CE7917C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

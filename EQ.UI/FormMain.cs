@@ -16,6 +16,9 @@ namespace EQ.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var act = ActManager.Instance.Act;
+            act.IO.GetIoStatus();
+            return;
             /*
             ACT act = new ACT();
 
@@ -28,12 +31,9 @@ namespace EQ.UI
 
             act.IO.CylinderPushAsync();
             */
-            string currentHardwareIoType = "WMX"; // 또는 "Simulation"
+          
 
-            // 2. 🔌 EQ.Infra의 팩토리를 호출하여 "실제" 하드웨어 인스턴스 생성
-            IIoController mainIoController = IoFactory.CreateIoController(currentHardwareIoType);
-            var act = ActManager.Instance.Act;
-            act.IO.SetHardwareController(mainIoController);
+          
             
             SeqManager.Instance.Seq.RunSequence(SeqName.Seq1_시나리오명);
         }

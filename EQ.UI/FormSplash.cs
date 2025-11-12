@@ -1,7 +1,11 @@
 ﻿using EQ.Common.Logs;
+using EQ.Core.Service;
+using EQ.Domain.Interface;
 using System;
-
 using System.Windows.Forms;
+using static EQ.Core.Sequence.SEQ;
+using static EQ.Infra.HW.IO.HardwareIOFactory;
+using static EQ.Infra.HW.Motion.HardwareMotionFactory;
 
 namespace EQ.UI
 {
@@ -31,10 +35,11 @@ namespace EQ.UI
 
         enum LoadStep
         {
-            None = 0,
-            LoadConfig = 1,
-            InitHardware = 2,
-            Complete = 3
+            None ,
+            LoadConfig ,
+            InitHardware_IO ,
+            InitHardware_Motion,
+            Complete 
         }
 
         public async void StartProgram()
@@ -50,7 +55,37 @@ namespace EQ.UI
                         switch (step)
                         {
                             case LoadStep.None:
+                               
+
+                                //SeqManager.Instance.Seq.RunSequence(SeqName.Seq1_시나리오명);
                                 updateLable("환경설정 파일 로드 중...");
+                                break;
+
+                                case LoadStep.InitHardware_IO:
+                                {
+                                    updateLable("하드웨어 IO 초기화 중...");
+                                    string currentHardwareIoType = "WMX"; // 또는 "Simulation"
+
+                                    var act = ActManager.Instance.Act;
+
+                                    // EQ.Infra의 팩토리를 호출하여 "실제" 하드웨어 인스턴스 생성
+                                    IIoController mainIoController = IoFactory.CreateIoController(currentHardwareIoType);
+                                    act.IO.SetHardwareController(mainIoController);                                   
+                                }
+                                   
+                                break;
+
+                            case LoadStep.InitHardware_Motion:
+                                {
+                                    updateLable("하드웨어 모터 초기화 중...");
+                                    string currentHardwareIoType = "WMX"; // 또는 "Simulation"
+
+                                    var act = ActManager.Instance.Act;                                  
+
+                                    IMotionController mainMotionController = MotionFactory.CreateIoController(currentHardwareIoType);
+                                    act.Motion.SetHardwareController(mainMotionController);
+                                }
+                               
                                 break;
                         }
                         step++;
@@ -61,10 +96,10 @@ namespace EQ.UI
 
 
                 updateLable("111");
-                     await Task.Delay(5000);
+                     await Task.Delay(10);
 
                     updateLable("222");
-                    await Task.Delay(5000);
+                    await Task.Delay(10);
                 }
                 catch (Exception ex)
                 {

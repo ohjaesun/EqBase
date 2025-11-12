@@ -523,6 +523,8 @@ namespace EQ.UI.Controls
             AllowUserToDeleteRows = false;
             AllowUserToResizeRows = false;
             RowHeadersVisible = false;
+            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ApplyTheme();
 

@@ -1,4 +1,5 @@
 ﻿using EQ.Core.Actions;
+using EQ.Domain.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,15 @@ namespace EQ.Core.Action
 {
     public class ActMotion : ActComponent
     {
+        private IMotionController _ioHardware;
         public ActMotion(ACT act) : base(act) { }
+
+        public void SetHardwareController(IMotionController controller)
+        {
+            this._ioHardware = controller;
+
+            _ioHardware.Init("ModelData/wmx_parameters.xml");
+        }
 
         public async Task<ActionStatus> HomeSearchAsync()
         {
