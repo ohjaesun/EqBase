@@ -14,7 +14,7 @@ namespace EQ.Domain.Entities
     /// <summary>
     /// 사용자 옵션 정의
     /// </summary>
-    public class UserOption
+    public class UserOption1
     {
 
         [CategoryAttribute("ChipData")]

@@ -1,4 +1,6 @@
-﻿using EQ.Core.Action;
+﻿
+using EQ.Common.Logs;
+using EQ.Core.Action;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -36,6 +38,9 @@ namespace EQ.Core.Actions
         /// </summary>
         public ActIO IO { get; private set; }
 
+        public ActUserOption Option { get; private set; }
+        public ActRecipe Recipe { get; private set; }
+
         public Action_Sample action_Sample { get; private set; } // 샘플 액션 추가
 
         public ACT()
@@ -44,6 +49,8 @@ namespace EQ.Core.Actions
             this.Motion = new ActMotion(this);
             this.IO = new ActIO(this);
             this.action_Sample = new Action_Sample(this); // 샘플 액션 초기화
+            this.Option = new ActUserOption(this);
+            this.Recipe = new ActRecipe(this);
         }
 
 
@@ -105,16 +112,17 @@ namespace EQ.Core.Actions
             bool err = GetActionStatus() == ActionStatus.Error;
             if (err)
             {
-                // DEPENDENCY: Log.Instance.Warning($"Act {title} : 장비 알람 상태에서 호출 됨");
+               
             }
 
             ActionState state = new ActionState(title);
-            state.Status = err ? ActionStatus.Finished : ActionStatus.Running;
+           
 
             // --- 타임아웃 로드 로직 (구 SetTitle) ---
             string iniSection = "Timeout";
             if (ACT_TimeOut.Count == 0)
             {
+                
                 // DEPENDENCY: CIni ini = new CIni("ActionTimeout"); ...
             }
             if (ACT_TimeOut.ContainsKey(state.Title) == false)
@@ -166,7 +174,7 @@ namespace EQ.Core.Actions
         /// [출력] (다음 Step의 인덱스)를 반환하는 로직
         /// </param>
         /// <returns></returns>
-        public async Task<ActionStatus> ExecuteStepBasedAction(string title, List<string> stepNames, Func<ActionState, string, Task<int>> stepLogic)
+        public async Task<ActionStatus> ExecuteAction(string title, List<string> stepNames, Func<ActionState, string, Task<int>> stepLogic)
         {
             // 1. Context 생성 (구 SetTitle)
             var context = CreateState(title);
@@ -214,8 +222,10 @@ namespace EQ.Core.Actions
 
 
             //실행 결과
-            if (context.Status == ActionStatus.Error)
+            if (context.Status == ActionStatus.Error || context.Status == ActionStatus.Timeout)
             {
+                
+                Log.Instance.Error($"Action {context.Title} ended with status: {context.Status}");
                 // 에러 알람
                 // (stepLogic 람다에서 context.Status = Error로 설정한 경우)
                 // DEPENDENCY: Alarm.setAlarm(ErrorList.ID.SEQUENCE_NOT_DEFINE, $"{context.Title} Error at step {context.StepName}");

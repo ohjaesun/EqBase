@@ -18,6 +18,10 @@ namespace EQ.UI
         {
             var act = ActManager.Instance.Act;
             act.IO.GetIoStatus();
+
+            var t = act.Option.Option1.Chip_Tray_X;
+
+        //    SeqManager.Instance.Seq.RunSequence(SeqName.Seq1_시나리오명);
             return;
             /*
             ACT act = new ACT();

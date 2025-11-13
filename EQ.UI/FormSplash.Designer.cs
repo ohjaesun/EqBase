@@ -29,23 +29,34 @@
         private void InitializeComponent()
         {
             lblStatus = new Label();
+            richTextBox1 = new RichTextBox();
             SuspendLayout();
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(49, 86);
+            lblStatus.Location = new Point(56, 103);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(39, 15);
+            lblStatus.Size = new Size(56, 18);
             lblStatus.TabIndex = 0;
             lblStatus.Text = "label1";
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(56, 176);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(453, 254);
+            richTextBox1.TabIndex = 1;
+            richTextBox1.Text = "";
+            // 
             // FormSplash
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 540);
+            Controls.Add(richTextBox1);
             Controls.Add(lblStatus);
+            Margin = new Padding(3, 5, 3, 5);
             Name = "FormSplash";
             Text = "FormSplash";
             Shown += FormSplash_Shown;
@@ -56,5 +67,6 @@
         #endregion
 
         private Label lblStatus;
+        private RichTextBox richTextBox1;
     }
 }

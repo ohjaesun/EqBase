@@ -35,6 +35,7 @@ namespace EQ.Core.Actions
             {
                 CallSequenceName = "Manual";
             }
+            Status = ActionStatus.Running;
         }
 
         public string Title => _Title;

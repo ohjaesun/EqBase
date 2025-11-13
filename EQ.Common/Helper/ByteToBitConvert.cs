@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EQ.Common.Helper
 {
+    /// <summary>
+    /// Byte 배열을 Bit(bool) 리스트로 변환하는 헬퍼 클래스
+    /// </summary>
     static public class ByteToBitConvert
     {
         /// <summary>

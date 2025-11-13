@@ -23,7 +23,7 @@ namespace EQ.Core.Action
         public async Task<ActionStatus> HomeSearchAsync()
         {
             // ACT의 공통 실행 함수 호출 (_act 접근 가능)
-            return await _act.ExecuteStepBasedAction(
+            return await _act.ExecuteAction(
                 title: "Motion_HomeSearch",
                 stepNames: new List<string> { "Start", "ServoOn", "Homing", "End" },
                 stepLogic: async (context, stepName) =>

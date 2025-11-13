@@ -23,7 +23,7 @@ namespace EQ.Core.Action
         {
             var stepString = new List<string> { "Start", "Step1", "Step2", "Step3", "End" };
 
-            return await _act.ExecuteStepBasedAction(
+            return await _act.ExecuteAction(
                 title: "SampleAsync",       // 2. Action Title 지정 - 함수명 그대로 넣어주세요 - 로그등에서 사용됩니다.
                 stepNames: stepString,
                 stepLogic: async (context, stepName) =>
