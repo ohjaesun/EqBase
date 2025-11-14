@@ -14,10 +14,10 @@ namespace EQ.Core.Sequence
     public enum seq01Step
     {
         Start,
-        인터락체크,
-        A_실린더_ON,
+        InterLockCheck,
+        SY_UP,
         Step3,
-        단위_시퀀스_실행,
+        NEXT_STEP,
         End
     }
 
@@ -42,23 +42,23 @@ namespace EQ.Core.Sequence
                     Step++;// = 인터락체크;
                     break;
 
-                case 인터락체크:                 
+                case InterLockCheck:                 
                     await _act.IO.doubleTypeOn(IO_OUT.TRAY_FEEDER_Front_Clamp_ForWard_ON);
                    
-                    Step = A_실린더_ON;
+                    Step = SY_UP;
                     break;
 
-                case A_실린더_ON:
+                case SY_UP:
                     await Task.Delay(1000);
                     Step = Step3;
                     break;
 
                 case Step3:
                     await Task.Delay(500);
-                    Step = 단위_시퀀스_실행;
+                    Step = NEXT_STEP;
                     break;
 
-                case 단위_시퀀스_실행:
+                case NEXT_STEP:
                     await Task.Delay(1000);
                     _Step++;
                     break;

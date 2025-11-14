@@ -113,7 +113,7 @@ namespace EQ.UI.UserViews
             }
         }
 
-        private void _ButtonNew_Click(object sender, EventArgs e)
+        private async void _ButtonNew_Click(object sender, EventArgs e)
         {
             if (!IsValidInput(out string newRecipeName))
                 return;
@@ -124,8 +124,16 @@ namespace EQ.UI.UserViews
                 return;
             }
 
-            // SetCurrentRecipe가 폴더 생성 및 C.ini 저장을 모두 처리함
-            _act.Recipe.SetCurrentRecipe(newRecipeName);
+            var result = await _act.PopupYesNo.Confirm(
+                "레시피 생성",
+                $"현재 레시피를 '{newRecipeName}'생성 하시겠습니까?\n(옵션 등 모든 설정이 다시 로드됩니다)",
+                NotifyType.Warning
+            );
+
+            if (result != YesNoResult.Yes) return;
+
+                // SetCurrentRecipe가 폴더 생성 및 C.ini 저장을 모두 처리함
+                _act.Recipe.SetCurrentRecipe(newRecipeName);
             _act.Option.LoadAllOptionsFromStorage(); // 새 레시피(기본값) 로드
             RefreshRecipeList();
             _TextBoxNewName.Text = "";
@@ -159,6 +167,13 @@ namespace EQ.UI.UserViews
                     RefreshRecipeList();
                     _TextBoxNewName.Text = "";
                     _act.PopupNoti("복사 완료", $"'{newRecipeName}' 레시피가 생성되었습니다.", NotifyType.Info);
+
+                    // 즉시 복사한 레시피로 전환
+                    if(false)
+                    {
+                        _act.Recipe.SetCurrentRecipe(newRecipeName);
+                        _act.Option.LoadAllOptionsFromStorage();
+                    }                    
                 }
                 // (실패 팝업은 ActRecipe.CopyRecipe 내부에서 처리)
             }
