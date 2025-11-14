@@ -31,6 +31,8 @@
             _Label1 = new EQ.UI.Controls._Label();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            _Button5 = new EQ.UI.Controls._Button();
+            _Button4 = new EQ.UI.Controls._Button();
             _Button3 = new EQ.UI.Controls._Button();
             _Button2 = new EQ.UI.Controls._Button();
             _Button1 = new EQ.UI.Controls._Button();
@@ -40,7 +42,7 @@
             interlock_View1 = new EQ.UI.UserViews.Interlock_IO_View();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
-            _Button4 = new EQ.UI.Controls._Button();
+            _Button6 = new EQ.UI.Controls._Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -78,6 +80,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(_Button6);
+            tabPage1.Controls.Add(_Button5);
             tabPage1.Controls.Add(_Button4);
             tabPage1.Controls.Add(_Button3);
             tabPage1.Controls.Add(_Button2);
@@ -89,6 +93,36 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // _Button5
+            // 
+            _Button5.BackColor = Color.FromArgb(52, 73, 94);
+            _Button5.Font = new Font("D2Coding", 12F);
+            _Button5.ForeColor = Color.White;
+            _Button5.Location = new Point(30, 118);
+            _Button5.Name = "_Button5";
+            _Button5.Size = new Size(100, 55);
+            _Button5.TabIndex = 4;
+            _Button5.Text = "로그인";
+            _Button5.ThemeStyle = UI.Controls.ThemeStyle.Primary_Indigo;
+            _Button5.TooltipText = null;
+            _Button5.UseVisualStyleBackColor = false;
+            _Button5.Click += _Button5_Click;
+            // 
+            // _Button4
+            // 
+            _Button4.BackColor = Color.FromArgb(52, 73, 94);
+            _Button4.Font = new Font("D2Coding", 12F);
+            _Button4.ForeColor = Color.White;
+            _Button4.Location = new Point(399, 25);
+            _Button4.Name = "_Button4";
+            _Button4.Size = new Size(100, 55);
+            _Button4.TabIndex = 3;
+            _Button4.Text = "타워램프";
+            _Button4.ThemeStyle = UI.Controls.ThemeStyle.Primary_Indigo;
+            _Button4.TooltipText = null;
+            _Button4.UseVisualStyleBackColor = false;
+            _Button4.Click += _Button4_Click;
             // 
             // _Button3
             // 
@@ -196,20 +230,20 @@
             tabPage5.Text = "tabPage5";
             tabPage5.UseVisualStyleBackColor = true;
             // 
-            // _Button4
+            // _Button6
             // 
-            _Button4.BackColor = Color.FromArgb(52, 73, 94);
-            _Button4.Font = new Font("D2Coding", 12F);
-            _Button4.ForeColor = Color.White;
-            _Button4.Location = new Point(399, 25);
-            _Button4.Name = "_Button4";
-            _Button4.Size = new Size(100, 55);
-            _Button4.TabIndex = 3;
-            _Button4.Text = "타워램프";
-            _Button4.ThemeStyle = UI.Controls.ThemeStyle.Primary_Indigo;
-            _Button4.TooltipText = null;
-            _Button4.UseVisualStyleBackColor = false;
-            _Button4.Click += _Button4_Click;
+            _Button6.BackColor = Color.FromArgb(52, 73, 94);
+            _Button6.Font = new Font("D2Coding", 12F);
+            _Button6.ForeColor = Color.White;
+            _Button6.Location = new Point(30, 179);
+            _Button6.Name = "_Button6";
+            _Button6.Size = new Size(100, 55);
+            _Button6.TabIndex = 5;
+            _Button6.Text = "로그인등급";
+            _Button6.ThemeStyle = UI.Controls.ThemeStyle.Primary_Indigo;
+            _Button6.TooltipText = null;
+            _Button6.UseVisualStyleBackColor = false;
+            _Button6.Click += _Button6_Click;
             // 
             // FormTest
             // 
@@ -243,5 +277,7 @@
         private UserViews.Recipe_View recipe_View1;
         private UserViews.Interlock_IO_View interlock_View1;
         private Controls._Button _Button4;
+        private Controls._Button _Button5;
+        private Controls._Button _Button6;
     }
 }

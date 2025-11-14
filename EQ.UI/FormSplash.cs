@@ -44,6 +44,7 @@ namespace EQ.UI
             Recipe ,            
             LoadUserOption,
             LoadConfig ,
+            LoadPasswords,
             InitHardware_IO ,
             InitHardware_Motion,
             Complete 
@@ -166,7 +167,13 @@ namespace EQ.UI
 
                                 break;
 
-                                case LoadStep.InitHardware_IO:
+                                case LoadStep.LoadPasswords:
+                                {
+
+                                    act.User.LoadPasswords();
+                                }
+                                break;
+                            case LoadStep.InitHardware_IO:
                                 {
                                    
                                     string currentHardwareIoType = "WMX"; // 또는 "Simulation"

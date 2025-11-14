@@ -58,5 +58,25 @@ namespace EQ.UI
             var act = ActManager.Instance.Act;
             act.TowerLamp.SetState(EqState.Running);
         }
+
+        private void _Button5_Click(object sender, EventArgs e)
+        {
+            FormLogin loginForm = new FormLogin();
+            loginForm.ShowDialog();
+        }
+
+        private void _Button6_Click(object sender, EventArgs e)
+        {
+            var act = ActManager.Instance.Act;
+            var r =act.User.CheckAccess(UserLevel.Engineer);
+            if (r)
+            {
+                act.PopupNoti("로그인레벨", "접근 허용.", NotifyType.Info);                
+            }
+            else
+            {
+                act.PopupNoti("로그인레벨", "접근 불가.", NotifyType.Error);
+            }
+        }
     }
 }

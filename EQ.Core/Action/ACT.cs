@@ -62,6 +62,8 @@ namespace EQ.Core.Actions
       
         public ActTowerLamp TowerLamp { get; private set; }
 
+        public ActUser User { get; private set; }
+
         public event EventHandler<NotifyEventArgs> OnNotificationRequest;
         public IConfirmationService PopupYesNo { get; private set; }
         public void RegisterConfirmationService(IConfirmationService service)
@@ -90,7 +92,7 @@ namespace EQ.Core.Actions
             this.Option = new ActUserOption(this);
             this.Recipe = new ActRecipe(this);
             this.TowerLamp = new ActTowerLamp(this);// FSM이 TowerLamp를 사용하므로 TowerLamp를 먼저 생성
-           
+            this.User = new ActUser(this);
         }
 
 
