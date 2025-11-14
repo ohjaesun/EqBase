@@ -71,6 +71,8 @@ namespace EQ.Core.Sequence
 
             if (p._Status == SeqStatus.STOP)
             {
+             
+
                 p._Status = SeqStatus.RUN;
                 p._Step = 0;
 
@@ -132,12 +134,14 @@ namespace EQ.Core.Sequence
                             p._StepTimeAllStop();
                             Log.Instance.Sequence($"Seq,{seqName},Status:[{p._Status}]");
                             p._Status = SeqStatus.STOP;
+                         
                         }
                         else // 에러 종료
                         {
                             p._StepTimeAllStop();
                             Log.Instance.Error($"Seq: {seqName} Status : {p._Status}");
                             Log.Instance.Sequence($"Seq,{seqName},Step,{p._StepString},Status:[{p._Status}]");
+                          
                         }
                     }
                     catch (Exception ex)

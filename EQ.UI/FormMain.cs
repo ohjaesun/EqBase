@@ -18,21 +18,9 @@ namespace EQ.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Application.Exit();
 
 
-            var act = ActManager.Instance.Act;
-
-            act.PopupNoti("시퀀스 시작", "Seq01이 시작되었습니다.", NotifyType.Info);
-            act.PopupYesNo.Confirm(
-                        "시퀀스 확인",
-                        "A 실린더가 ON 되었습니다. 다음 스텝으로 진행할까요?",
-                        NotifyType.Warning // 경고 타입
-                    );
-            act.IO.GetIoStatus();
-
-            var t = act.Option.Option1.Chip_Tray_X;
-
-            //    SeqManager.Instance.Seq.RunSequence(SeqName.Seq1_시나리오명);
             return;
             /*
             ACT act = new ACT();

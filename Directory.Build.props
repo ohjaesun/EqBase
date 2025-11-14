@@ -9,6 +9,6 @@
     <OutputPath>$(BaseOutputPath)$(Platform)\$(Configuration)\</OutputPath>
     
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)..\Intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
   </PropertyGroup>
 </Project>

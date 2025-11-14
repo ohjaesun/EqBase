@@ -59,7 +59,8 @@ namespace EQ.Core.Actions
 
         public ActUserOption Option { get; private set; }
         public ActRecipe Recipe { get; private set; }
-
+      
+        public ActTowerLamp TowerLamp { get; private set; }
 
         public event EventHandler<NotifyEventArgs> OnNotificationRequest;
         public IConfirmationService PopupYesNo { get; private set; }
@@ -88,6 +89,8 @@ namespace EQ.Core.Actions
             this.action_Sample = new Action_Sample(this); // 샘플 액션 초기화
             this.Option = new ActUserOption(this);
             this.Recipe = new ActRecipe(this);
+            this.TowerLamp = new ActTowerLamp(this);// FSM이 TowerLamp를 사용하므로 TowerLamp를 먼저 생성
+           
         }
 
 
