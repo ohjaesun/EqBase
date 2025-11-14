@@ -32,7 +32,7 @@
             _Panel1 = new EQ.UI.Controls._Panel();
             _LabelTitle = new EQ.UI.Controls._Label();
             _ButtonSave = new EQ.UI.Controls._Button();
-            _Panel2 = new EQ.UI.Controls._Panel();
+            _PanelMain = new EQ.UI.Controls._Panel();
             timer1 = new System.Windows.Forms.Timer(components);
             timer2 = new System.Windows.Forms.Timer(components);
             _Panel1.SuspendLayout();
@@ -80,21 +80,21 @@
             _ButtonSave.TooltipText = null;
             _ButtonSave.UseVisualStyleBackColor = false;
             // 
-            // _Panel2
+            // _PanelMain
             // 
-            _Panel2.BackColor = SystemColors.Control;
-            _Panel2.Dock = DockStyle.Fill;
-            _Panel2.ForeColor = SystemColors.ControlText;
-            _Panel2.Location = new Point(0, 59);
-            _Panel2.Name = "_Panel2";
-            _Panel2.Size = new Size(363, 313);
-            _Panel2.TabIndex = 0;
+            _PanelMain.BackColor = SystemColors.Control;
+            _PanelMain.Dock = DockStyle.Fill;
+            _PanelMain.ForeColor = SystemColors.ControlText;
+            _PanelMain.Location = new Point(0, 59);
+            _PanelMain.Name = "_PanelMain";
+            _PanelMain.Size = new Size(363, 313);
+            _PanelMain.TabIndex = 0;
             // 
             // UserControlBase
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(_Panel2);
+            Controls.Add(_PanelMain);
             Controls.Add(_Panel1);
             Font = new Font("D2Coding", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
             Margin = new Padding(3, 4, 3, 4);
@@ -109,7 +109,7 @@
         private Controls._Panel _Panel1;
         public Controls._Label _LabelTitle;
         public Controls._Button _ButtonSave;
-        public Controls._Panel _Panel2;
+        public Controls._Panel _PanelMain;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
     }

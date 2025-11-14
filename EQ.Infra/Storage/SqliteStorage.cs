@@ -97,25 +97,33 @@ namespace EQ.Infra.Storage
         /// <param name="path">레시피 폴더 경로</param>
         /// <param name="key">정리할 데이터 키 (테이블 이름)</param>
         /// <param name="olderThan">삭제할 기간 (기본값: 30일)</param>
-        public void PurgeOldBackups(string path, string key, TimeSpan? olderThan = null)
+        public void DeleteOldBackups(string path, string key, TimeSpan? olderThan = null)
         {
-            string dbPath = Path.Combine(path, DB_FILE_NAME);
-            string tableName = SanitizeTableName(key);
-            if (!File.Exists(dbPath)) return;
-
-            var cutoff = olderThan ?? TimeSpan.FromDays(30);
-            long cutoffTimestamp = DateTimeOffset.UtcNow.Subtract(cutoff).ToUnixTimeSeconds();
-
-            using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+            try
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText =
-                    $"DELETE FROM {tableName} WHERE Timestamp < @cutoffTimestamp AND Key = @Key";
-                command.Parameters.AddWithValue("@cutoffTimestamp", cutoffTimestamp);
-                command.Parameters.AddWithValue("@Key", key);
-                command.ExecuteNonQuery();
+                string dbPath = Path.Combine(path, DB_FILE_NAME);
+                string tableName = SanitizeTableName(key);
+                if (!File.Exists(dbPath)) return;
+
+                var cutoff = olderThan ?? TimeSpan.FromDays(60);
+                long cutoffTimestamp = DateTimeOffset.UtcNow.Subtract(cutoff).ToUnixTimeSeconds();
+
+                using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                        $"DELETE FROM {tableName} WHERE Timestamp < @cutoffTimestamp AND Key = @Key";
+                    command.Parameters.AddWithValue("@cutoffTimestamp", cutoffTimestamp);
+                    command.Parameters.AddWithValue("@Key", key);
+                    command.ExecuteNonQuery();
+                }
             }
+            catch
+            {
+                // (로그) 백업 정리 중 오류
+            }
+            
         }
 
         /// <summary>
@@ -125,45 +133,53 @@ namespace EQ.Infra.Storage
         /// </summary>
         public int ExportAllByKey(string path, string key, string exportFolderPath)
         {
-            string dbPath = Path.Combine(path, DB_FILE_NAME);
-            string tableName = SanitizeTableName(key);
-            if (!File.Exists(dbPath)) return 0;
-
-            Directory.CreateDirectory(exportFolderPath);
-            int filesExported = 0;
-
-            using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+            try
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText =
-                    $"SELECT Value, Timestamp FROM {tableName} " +
-                    "WHERE Key = @Key ORDER BY Timestamp ASC";
-                command.Parameters.AddWithValue("@Key", key);
+                string dbPath = Path.Combine(path, DB_FILE_NAME);
+                string tableName = SanitizeTableName(key);
+                if (!File.Exists(dbPath)) return 0;
 
-                using (var reader = command.ExecuteReader())
+                Directory.CreateDirectory(exportFolderPath);
+                int filesExported = 0;
+
+                using (var connection = new SqliteConnection($"Data Source={dbPath}"))
                 {
-                    while (reader.Read())
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                        $"SELECT Value, Timestamp FROM {tableName} " +
+                        "WHERE Key = @Key ORDER BY Timestamp ASC";
+                    command.Parameters.AddWithValue("@Key", key);
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        string jsonValue = reader.GetString(0);
-                        long unixTimestamp = reader.GetInt64(1);
-                        DateTimeOffset dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp);
-
-                        string fileName = dateTime.ToLocalTime().ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
-                        string filePath = Path.Combine(exportFolderPath, fileName);
-
-                        try
+                        while (reader.Read())
                         {
-                            T dataObject = JsonConvert.DeserializeObject<T>(jsonValue);
-                            string indentedJson = JsonConvert.SerializeObject(dataObject, Formatting.Indented);
-                            File.WriteAllText(filePath, indentedJson);
-                            filesExported++;
+                            string jsonValue = reader.GetString(0);
+                            long unixTimestamp = reader.GetInt64(1);
+                            DateTimeOffset dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp);
+
+                            string fileName = dateTime.ToLocalTime().ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
+                            string filePath = Path.Combine(exportFolderPath, fileName);
+
+                            try
+                            {
+                                T dataObject = JsonConvert.DeserializeObject<T>(jsonValue);
+                                string indentedJson = JsonConvert.SerializeObject(dataObject, Formatting.Indented);
+                                File.WriteAllText(filePath, indentedJson);
+                                filesExported++;
+                            }
+                            catch { /* (로그) 내보내기 중 개별 파일 오류 */ }
                         }
-                        catch { /* (로그) 내보내기 중 개별 파일 오류 */ }
                     }
                 }
+                return filesExported;
             }
-            return filesExported;
+            catch
+            {
+                // (로그) 백업 내보내기 중 오류
+                return 0;
+            }            
         }
 
         #endregion

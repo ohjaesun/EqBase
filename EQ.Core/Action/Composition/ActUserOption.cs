@@ -78,6 +78,15 @@ namespace EQ.Core.Action
         }
 
         /// <summary>
+        /// [엔진] 캐시된 객체를 외부 객체로 '대체'합니다. (UI 저장용)
+        /// </summary>
+        public void Set<T>(T options) where T : class, new()
+        {
+            if (options == null) return;
+            _optionCache[typeof(T)] = options;
+        }
+
+        /// <summary>
         /// [엔진] 캐시된 객체를 제네릭으로 저장합니다.
         /// </summary>
         public void Save<T>() where T : class, new()

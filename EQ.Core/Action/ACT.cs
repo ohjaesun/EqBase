@@ -1,6 +1,8 @@
 ﻿
 using EQ.Common.Logs;
 using EQ.Core.Action;
+using EQ.Domain.Enums;
+using EQ.Domain.Interface;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,6 +12,23 @@ using System.Threading.Tasks;
 
 namespace EQ.Core.Actions
 {
+    /// <summary>
+    /// (신규) 단방향 알림 이벤트용 데이터 클래스
+    /// </summary>
+    public class NotifyEventArgs : EventArgs
+    {
+        public string Title { get; }
+        public string Message { get; }
+        public NotifyType Type { get; }
+
+        public NotifyEventArgs(string title, string message, NotifyType type)
+        {
+            Title = title;
+            Message = message;
+            Type = type;
+        }
+    }
+
     /// <summary>
     /// 모든 기능별 클래스(Motion, IO 등)가 상속받을 기본 클래스
     /// ACT 메인 인스턴스에 접근할 수 있게 해줍니다.
@@ -40,6 +59,24 @@ namespace EQ.Core.Actions
 
         public ActUserOption Option { get; private set; }
         public ActRecipe Recipe { get; private set; }
+
+
+        public event EventHandler<NotifyEventArgs> OnNotificationRequest;
+        public IConfirmationService PopupYesNo { get; private set; }
+        public void RegisterConfirmationService(IConfirmationService service)
+        {
+            this.PopupYesNo = service;
+        }
+        /// <summary>
+        /// UI 레이어에 알림 팝업을 요청합니다. (Fire and Forget)
+        /// (Core는 UI를 모르므로 이벤트를 발생시킴)
+        /// </summary>
+        public void PopupNoti(string title, string message, NotifyType type)
+        {
+            // UI(FormSplash)에 구독자가 있으면 이벤트 발생
+            OnNotificationRequest?.Invoke(this, new NotifyEventArgs(title, message, type));
+        }
+
 
         public Action_Sample action_Sample { get; private set; } // 샘플 액션 추가
 

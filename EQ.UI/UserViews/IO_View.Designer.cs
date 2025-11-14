@@ -33,7 +33,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             _dataGridView1 = new EQ.UI.Controls._DataGridView();
             _dataGridView2 = new EQ.UI.Controls._DataGridView();
-            _Panel2.SuspendLayout();
+            _PanelMain.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)_dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)_dataGridView2).BeginInit();
@@ -49,8 +49,8 @@
             // 
             // _Panel2
             // 
-            _Panel2.Controls.Add(tableLayoutPanel1);
-            _Panel2.Size = new Size(831, 425);
+            _PanelMain.Controls.Add(tableLayoutPanel1);
+            _PanelMain.Size = new Size(831, 425);
             // 
             // tableLayoutPanel1
             // 
@@ -128,7 +128,7 @@
             Name = "IO_View";
             Size = new Size(831, 484);
             Load += IO_View_Load;
-            _Panel2.ResumeLayout(false);
+            _PanelMain.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)_dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)_dataGridView2).EndInit();

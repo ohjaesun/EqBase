@@ -27,7 +27,7 @@ namespace EQ.UI.UserViews
         public IO_View()
         {
             InitializeComponent();
-            Disposed += IO_View_Disposed;
+            
         }
 
         private void IO_View_Disposed(object? sender, EventArgs e)
@@ -40,6 +40,8 @@ namespace EQ.UI.UserViews
         private void IO_View_Load(object sender, EventArgs e)
         {
             if (DesignMode) return; // 코드 디자인 모드에서는 탭 보이도록 함
+
+            Disposed += IO_View_Disposed;
 
             _dataTableIn = new DataTable();
             _dataTableIn.Columns.Add("No", typeof(string));

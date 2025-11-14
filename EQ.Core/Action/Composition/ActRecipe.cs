@@ -1,4 +1,5 @@
-﻿using EQ.Core.Actions;
+﻿using EQ.Common.Helper;
+using EQ.Core.Actions;
 using System.IO;
 
 namespace EQ.Core.Action
@@ -8,7 +9,7 @@ namespace EQ.Core.Action
     /// </summary>
     public class ActRecipe : ActComponent
     {
-        private string _baseRecipeFolder;
+        private string _baseRecipeFolder = Environment.CurrentDirectory + "\\RECIPE\\";
 
         // (예: "Recipe_A")
         public string CurrentRecipeName { get; private set; } = "DefaultRecipe";
@@ -18,10 +19,13 @@ namespace EQ.Core.Action
         /// <summary>
         /// (UI 시작 시 호출) 레시피의 최상위 폴더 경로를 설정합니다.
         /// </summary>
-        public void Initialize(string baseRecipeFolder)
-        {
-            _baseRecipeFolder = baseRecipeFolder;
+        public void Initialize()
+        {                     
             Directory.CreateDirectory(_baseRecipeFolder);
+
+            CIni ini = new CIni();
+            var rcp = ini.ReadString("SYSTEM", "RCP_NAME", "default");
+            CurrentRecipeName = rcp;
         }
 
         /// <summary>
@@ -29,6 +33,9 @@ namespace EQ.Core.Action
         /// </summary>
         public void SetCurrentRecipe(string recipeName)
         {
+            CIni ini = new CIni();
+            ini.WriteString("SYSTEM", "RCP_NAME", recipeName);            
+
             CurrentRecipeName = recipeName;
             // (필요시) Log.Instance.Info($"레시피 변경: {recipeName}");
         }
@@ -40,6 +47,10 @@ namespace EQ.Core.Action
         public string GetCurrentRecipePath()
         {
             if (string.IsNullOrEmpty(_baseRecipeFolder)) return "";
+
+            Directory.CreateDirectory(_baseRecipeFolder);
+            Directory.CreateDirectory(Path.Combine(_baseRecipeFolder, CurrentRecipeName));
+
             return Path.Combine(_baseRecipeFolder, CurrentRecipeName);
         }
     }

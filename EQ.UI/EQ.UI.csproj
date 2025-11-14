@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EQ.Common\EQ.Common.csproj" />
     <ProjectReference Include="..\EQ.Core\EQ.Core.csproj" />
     <ProjectReference Include="..\EQ.Domain\EQ.Domain.csproj" />

@@ -4,6 +4,8 @@ using EQ.Core.Service;
 using EQ.Domain.Entities;
 using EQ.Domain.Interface;
 using EQ.Infra.Storage;
+using EQ.UI.Services;
+using SQLitePCL;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -39,7 +41,7 @@ namespace EQ.UI
 
         enum LoadStep
         {
-            Recipe ,
+            Recipe ,            
             LoadUserOption,
             LoadConfig ,
             InitHardware_IO ,
@@ -52,6 +54,11 @@ namespace EQ.UI
             Log.Instance.Info("프로그램 시작");
 
             var act = ActManager.Instance.Act;
+            // 1. (신규) 단방향 알람은 'HandleCoreNotification' 메서드로 연결
+            act.OnNotificationRequest += HandleCoreNotification;
+
+            // 2. (신규) 양방향(Yes/No) 확인 서비스 주입
+            act.RegisterConfirmationService(new UIConfirmationService());
 
             await Task.Run(async () => {
             try
@@ -68,7 +75,8 @@ namespace EQ.UI
                         {
                             case LoadStep.Recipe:
 
-                                act.Recipe.Initialize("");
+                                Batteries.Init();
+                                act.Recipe.Initialize();
 
                                 IDataStorage<UserOption1> userOptionStorage1 = new DualStorage<UserOption1>
                                 (
@@ -104,8 +112,41 @@ namespace EQ.UI
 
                                 act.Option.LoadAllOptionsFromStorage();
 
+                                //Old DB 삭제
+                                // 1. 정리할 대상(T)의 SqliteStorage 인스턴스를 생성합니다.
+                                var userOption1Storage = new SqliteStorage<UserOption1>();
+                                var userOption2Storage = new SqliteStorage<UserOption2>();
+                                var userOption3Storage = new SqliteStorage<UserOption3>();
+                                var userOption4Storage = new SqliteStorage<UserOption4>();
+                                var userOptionUIStorage = new SqliteStorage<UserOptionUI>();
+
+                                // 2. 현재 레시피 경로를 가져옵니다.
+                                string currentRecipePath = act.Recipe.GetCurrentRecipePath();
+
+                                // 3. 키(key)를 지정하여 삭제 명령을 호출합니다.
+                                // (키 이름은 ActUserOption.cs의 GetStorageKey 로직을 따릅니다)
+                                string key1 = nameof(UserOption1);
+                                string key2 = nameof(UserOption2);
+                                string key3 = nameof(UserOption3);
+                                string key4 = nameof(UserOption4);
+                                string keyUI = nameof(UserOptionUI);
+                                                                
+                                userOption1Storage.DeleteOldBackups(currentRecipePath, key1);
+                                userOption2Storage.DeleteOldBackups(currentRecipePath, key2);
+                                userOption3Storage.DeleteOldBackups(currentRecipePath, key3);
+                                userOption4Storage.DeleteOldBackups(currentRecipePath, key4);
+                                userOptionUIStorage.DeleteOldBackups(currentRecipePath, keyUI);
+
+
+
+
+                               
+
                                 /*
                                 //사용 예제
+
+                                act.Option.Save<UserOption1>();
+                                act.Option.Save<UserOptionUI>();
 
                                 //UserOption1 ~4 사용법 예제
                                 act.Option.Option1.Chip_Tray_X = 1;
@@ -189,8 +230,60 @@ namespace EQ.UI
 
 
         }
+
+        /// <summary>
+        /// 알림 팝업 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleCoreNotification(object? sender, NotifyEventArgs e)
+        {
+            // 백그라운드 스레드에서 호출될 수 있으므로 UI 스레드로 전환
+            Action showAction = () =>
+            {
+                var popupGroup = new List<FormNotify>();
+
+                foreach (Screen screen in Screen.AllScreens)
+                {
+                    FormNotify notifyForm = new FormNotify(e.Title, e.Message, e.Type);
+
+                    // 팝업 위치를 모니터 중앙으로 설정
+                    Rectangle bounds = screen.WorkingArea;
+                    notifyForm.StartPosition = FormStartPosition.Manual;
+                    notifyForm.Left = bounds.Left + (bounds.Width - notifyForm.Width) / 2;
+                    notifyForm.Top = bounds.Top + (bounds.Height - notifyForm.Height) / 2;
+
+                    popupGroup.Add(notifyForm);
+                }
+
+                // 모든 팝업에게 "그룹" 정보 전달
+                foreach (var form in popupGroup)
+                {
+                    form.SetSiblingGroup(popupGroup);
+                }
+
+                // 모든 팝업 표시
+                foreach (var form in popupGroup)
+                {
+                    form.Show();
+                }
+            };
+
+            // UI 스레드에서 실행
+            Form mainForm = Application.OpenForms.Cast<Form>().FirstOrDefault();
+            if (mainForm != null && mainForm.InvokeRequired)
+            {
+                mainForm.Invoke(showAction);
+            }
+            else
+            {
+                showAction();
+            }
+        }
+
         public void EndProgram()
         {
+            ActManager.Instance.Act.OnNotificationRequest -= HandleCoreNotification;
             Log.Instance.Info("프로그램 종료");
         }
 

@@ -34,7 +34,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 540);
+            ClientSize = new Size(993, 872);
             Font = new Font("D2Coding", 12F, FontStyle.Regular, GraphicsUnit.Point, 129);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
